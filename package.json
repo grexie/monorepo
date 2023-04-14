@@ -1,6 +1,6 @@
 {
   "name": "@grexie/monorepo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "private": true,
   "type": "module",
@@ -29,7 +29,8 @@
   "release-it": {
     "git": {
       "commit": false
-    }
+    },
+    "npm": true
   },
   "publishConfig": {
     "access": "public"
