@@ -7,12 +7,12 @@ import chalk from 'chalk';
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 export const getWorkspacesRoot = () => {
-  let dirname = path.resolve(__dirname, '..', '..');
+  let dirname = process.cwd();
   while (path.dirname(dirname) !== dirname) {
     if (existsSync(path.resolve(dirname, 'package.json'))) {
       if (
         JSON.parse(
-          readFileSync(path.resolve(__dirname, 'package.json')).toString()
+          readFileSync(path.resolve(dirname, 'package.json')).toString()
         ).workspaces
       ) {
         return dirname;
@@ -23,9 +23,11 @@ export const getWorkspacesRoot = () => {
     if (path.basename(dirname) === 'node_modules') {
       dirname = path.dirname(dirname);
     } else {
+      console.info(dirname);
       throw new Error('unable to find workspace root');
     }
   }
+  console.info(dirname);
 };
 
 export const getWorkspaces = () => {
