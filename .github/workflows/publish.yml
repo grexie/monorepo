@@ -1,0 +1,52 @@
+on:
+  push:
+    branches: master
+
+name: Publish to NPM
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: node:lts
+    steps:
+      - uses: actions/checkout@v2
+      - id: cache-modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('package.json', 'yarn.lock') }}
+      - if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: yarn --frozen-lockfile
+      - run: yarn build
+      # - name: test
+      #   run: yarn test
+
+  publish:
+    name: publish
+    needs: test
+    runs-on: ubuntu-latest
+    container: node:lts
+    steps:
+      - run: |
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git config --global user.name "${GITHUB_ACTOR}"
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - id: cache-modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('package.json', 'yarn.lock') }}
+      - if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: yarn --frozen-lockfile
+      - run: yarn build
+      - name: publish
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          find . -type f -exec chmod ugo+rw {} \;
+          find . -type d -exec chmod ugo+rwx {} \;
+          npm run release patch --github.release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

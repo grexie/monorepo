@@ -1,0 +1,20 @@
+on: [pull_request]
+
+name: Build and Test
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: node:lts
+    steps:
+      - uses: actions/checkout@v2
+      - id: cache-modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('package.json', 'yarn.lock') }}
+      - if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: yarn --frozen-lockfile
+      - run: yarn build
+      - name: test
+        run: yarn test
