@@ -6,7 +6,7 @@ import chalk from "chalk";
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-export const findWorkspaceRoot = () => {
+export const getWorkspacesRoot = () => {
   let dirname = path.resolve(__dirname, "..", "..");
   while (path.dirname(dirname) !== dirname) {
     if (existsSync(path.resolve(dirname, "package.json"))) {
@@ -30,7 +30,7 @@ export const findWorkspaceRoot = () => {
 
 export const getWorkspaces = () => {
   const workspaceGlobs: string[] = JSON.parse(
-    readFileSync(resolve(findWorkspaceRoot(), "package.json")).toString()
+    readFileSync(resolve(getWorkspacesRoot(), "package.json")).toString()
   ).workspaces;
 
   const packageFiles = workspaceGlobs
