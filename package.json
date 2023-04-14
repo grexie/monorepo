@@ -32,9 +32,7 @@
     "git": {
       "commit": false
     },
-    "npm": {
-      "ignoreVersion": true
-    }
+    "npm": false
   },
   "publishConfig": {
     "access": "public"
