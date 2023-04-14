@@ -1,6 +1,6 @@
 {
   "name": "@grexie/monorepo",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "license": "MIT",
   "type": "module",
   "bin": {
