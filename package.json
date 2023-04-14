@@ -2,7 +2,6 @@
   "name": "@grexie/monorepo",
   "version": "1.0.3",
   "license": "MIT",
-  "private": true,
   "type": "module",
   "bin": {
     "monorepo": "bin/monorepo.js"
@@ -30,8 +29,7 @@
   "release-it": {
     "git": {
       "commit": false
-    },
-    "npm": true
+    }
   },
   "publishConfig": {
     "access": "public"
