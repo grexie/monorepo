@@ -1,18 +1,18 @@
-import glob from "glob";
-import { dirname, resolve } from "path";
-import { existsSync, readFileSync } from "fs";
-import path from "path";
-import chalk from "chalk";
+import glob from 'glob';
+import { dirname, resolve } from 'path';
+import { existsSync, readFileSync } from 'fs';
+import path from 'path';
+import chalk from 'chalk';
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 export const getWorkspacesRoot = () => {
-  let dirname = path.resolve(__dirname, "..", "..");
+  let dirname = path.resolve(__dirname, '..', '..');
   while (path.dirname(dirname) !== dirname) {
-    if (existsSync(path.resolve(dirname, "package.json"))) {
+    if (existsSync(path.resolve(dirname, 'package.json'))) {
       if (
         JSON.parse(
-          readFileSync(path.resolve(__dirname, "package.json")).toString()
+          readFileSync(path.resolve(__dirname, 'package.json')).toString()
         ).workspaces
       ) {
         return dirname;
@@ -20,25 +20,25 @@ export const getWorkspacesRoot = () => {
         dirname = path.dirname(dirname);
       }
     }
-    if (path.basename(dirname) === "node_modules") {
+    if (path.basename(dirname) === 'node_modules') {
       dirname = path.dirname(dirname);
     } else {
-      throw new Error("unable to find workspace root");
+      throw new Error('unable to find workspace root');
     }
   }
 };
 
 export const getWorkspaces = () => {
   const workspaceGlobs: string[] = JSON.parse(
-    readFileSync(resolve(getWorkspacesRoot(), "package.json")).toString()
+    readFileSync(resolve(getWorkspacesRoot(), 'package.json')).toString()
   ).workspaces;
 
   const packageFiles = workspaceGlobs
-    .map((g) => glob.sync(g + "/package.json"))
+    .map(g => glob.sync(g + '/package.json'))
     .reduce((a: string[], b: string[]) => [...a, ...b], []);
 
   return packageFiles
-    .map((filename) => {
+    .map(filename => {
       try {
         const json = JSON.parse(readFileSync(filename).toString());
         return {
@@ -49,5 +49,5 @@ export const getWorkspaces = () => {
         console.error(chalk.bold.red(filename));
       }
     })
-    .filter(({ location }) => !location.startsWith("tools/"));
+    .filter(({ location }) => !location.startsWith('tools/'));
 };

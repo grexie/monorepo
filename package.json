@@ -16,6 +16,7 @@
     "@babel/plugin-transform-runtime": "^7.21.4",
     "@babel/preset-env": "^7.21.4",
     "@babel/register": "^7.21.0",
+    "@grexie/mutex": "^0.4.1",
     "@types/glob": "^8.1.0",
     "@types/minimist": "^1.2.2",
     "@types/node": "^10.9.1",
