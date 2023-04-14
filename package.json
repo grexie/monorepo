@@ -9,6 +9,7 @@
   },
   "scripts": {
     "clean": "git clean -qdfX && yarn install --force && yarn build",
+    "build": "echo build: nothing to do",
     "release": "release-it"
   },
   "dependencies": {
