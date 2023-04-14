@@ -1,6 +1,6 @@
 {
   "name": "@grexie/monorepo",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "license": "MIT",
   "type": "module",
   "bin": {
@@ -30,9 +30,8 @@
   },
   "release-it": {
     "git": {
-      "commit": false
-    },
-    "npm": false
+      "commit": true
+    }
   },
   "publishConfig": {
     "access": "public"
