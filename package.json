@@ -31,6 +31,9 @@
   "release-it": {
     "git": {
       "commit": false
+    },
+    "npm": {
+      "ignoreVersion": true
     }
   },
   "publishConfig": {
