@@ -1,4 +1,7 @@
 {
+  "ts-node": {
+    "ignore": ["(?:^|/)node_modules/(?!@grexie/monorepo)"]
+  },
   "compilerOptions": {
     "noEmit": true,
     "target": "es6",
