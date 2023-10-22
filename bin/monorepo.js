@@ -1,4 +1,4 @@
-#!/usr/bin/env TS_NODE_SKIP_IGNORE=true node --loader ts-node/esm/transpile-only --no-warnings
+#!/usr/bin/env -S TS_NODE_SKIP_IGNORE=true node --loader ts-node/esm/transpile-only --no-warnings
 
 import path from 'path';
 import parseArgs from 'minimist';
